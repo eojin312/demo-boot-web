@@ -23,10 +23,18 @@ class SampleControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private PersonRepository personRepository;
+
     @Test
     public void hello() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/hello/hachi"))
+        Person person = new Person();
+        person.setName("hachi");
+        Person savedPerson = personRepository.save(person);
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/hello")
+                .param("id", savedPerson.getId().toString()))
                 .andDo(print())
                 .andExpect((ResultMatcher) content().string("hello hachi"));
+
     }
 }
