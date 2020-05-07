@@ -1,5 +1,6 @@
 package hachi.demobootweb;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.http.ResponseEntity.status;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -36,5 +39,12 @@ class SampleControllerTest {
                 .andDo(print())
                 .andExpect((ResultMatcher) content().string("hello hachi"));
 
+    }
+    @Test
+    public void helloStatic() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/index.html"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect((ResultMatcher) content().string(Matchers.containsString("hello index")));
     }
 }
