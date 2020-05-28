@@ -1,21 +1,22 @@
 package hachi.demobootweb;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.CacheControl;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
-import static org.springframework.http.ResponseEntity.status;
+import java.util.concurrent.TimeUnit;
+
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @RunWith(SpringRunner.class)
@@ -40,11 +41,20 @@ class SampleControllerTest {
                 .andExpect((ResultMatcher) content().string("hello hachi"));
 
     }
+
     @Test
-    public void helloStatic() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/index.html"))
+    public void addResourceHandler(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/mobile/**")
+                .addResourceLocations("classpath:mobile/")
+                .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
+    }
+
+    @Test
+    public void stringMessage() throws Exception{
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/message")
+                .content("hello"))
                 .andDo(print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect((ResultMatcher) content().string(Matchers.containsString("hello index")));
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) content().string("hello"));
     }
 }
