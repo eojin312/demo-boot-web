@@ -21,6 +21,7 @@ import javax.print.attribute.standard.Media;
 
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -39,34 +40,6 @@ class SampleControllerTest {
     private PersonRepository personRepository;
 
     @Test
-    public void hello() throws Exception {
-        Person person = new Person();
-        person.setName("hachi");
-        Person savedPerson = personRepository.save(person);
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/hello")
-                .param("id", savedPerson.getId().toString()))
-                .andDo(print())
-                .andExpect((ResultMatcher) content().string("hello hachi"));
-
-    }
-
-    @Test
-    public void addResourceHandler(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/mobile/**")
-                .addResourceLocations("classpath:mobile/")
-                .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
-    }
-
-    @Test
-    public void stringMessage() throws Exception{
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/message")
-                .content("hello"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect((ResultMatcher) content().string("hello"));
-    }
-
-    @Test
     public void jsonMessage() throws Exception {
         Person person = new Person();
         person.setId(2019L);
@@ -80,6 +53,10 @@ class SampleControllerTest {
                             .content(jsonString)
         )
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(2019))
+                .andExpect(jsonPath("$.name").value("hachi"));
+
+
     }
 }
