@@ -1,3 +1,4 @@
+/*
 package hachi.demobootweb;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,7 +57,6 @@ class SampleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2019))
                 .andExpect(jsonPath("$.name").value("hachi"));
-
-
     }
 }
+*/

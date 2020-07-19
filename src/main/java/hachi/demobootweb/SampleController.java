@@ -1,3 +1,4 @@
+/*
 package hachi.demobootweb;
 
 import org.springframework.web.bind.annotation.*;
@@ -28,3 +29,4 @@ public class SampleController {
         return person;
     }
 }
+*/
