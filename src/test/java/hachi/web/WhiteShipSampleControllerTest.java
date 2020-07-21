@@ -21,10 +21,9 @@ class WhiteShipSampleControllerTest {
 
     @Test
     void 요청테스트() throws Exception {
-        mockMvc.perform(get("/hello/1123/123"))
+        mockMvc.perform(get("/hello/{eojin}"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("hello"));
+                .andExpect(content().string("hello eojin"));
     }
-
 }
