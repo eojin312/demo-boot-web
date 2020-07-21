@@ -21,19 +21,9 @@ class WhiteShipSampleControllerTest {
 
     @Test
     void 요청테스트() throws Exception {
-        mockMvc.perform(get("/hello"))
+        mockMvc.perform(get("/hello/1123/123"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("hello"));
-
-        mockMvc.perform(put("/hello"))
-                .andDo(print())
-                .andExpect(status().isMethodNotAllowed())
-                .andExpect(content().string("hello"));
-
-        mockMvc.perform(post("/hello"))
-                .andDo(print())
-                .andExpect(status().isMethodNotAllowed())
                 .andExpect(content().string("hello"));
     }
 
