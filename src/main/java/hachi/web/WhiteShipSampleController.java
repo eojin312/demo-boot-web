@@ -17,7 +17,7 @@ public class WhiteShipSampleController {
         return "hello" + name;
     }
 
-    @GetMapping(value = "/**", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/**", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String hello() {
         return "hello";
