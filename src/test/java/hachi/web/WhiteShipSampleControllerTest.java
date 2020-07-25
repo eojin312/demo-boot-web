@@ -9,8 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
@@ -20,10 +19,21 @@ class WhiteShipSampleControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void 요청테스트() throws Exception {
-        mockMvc.perform(get("/hello/{eojin}"))
+    void 이름파라미터_요청테스트() throws Exception {
+
+        mockMvc.perform(get("/hello/eojin"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("hello eojin"));
+                .andExpect(content().string("helloeojin"));
+    }
+
+    @Test
+    void 요청테스트() throws Exception {
+        mockMvc.perform(get("/hello"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("hello"))
+                .andExpect(handler().handlerType(WhiteShipSampleController.class))
+                .andExpect(handler().methodName("hello"));
     }
 }
