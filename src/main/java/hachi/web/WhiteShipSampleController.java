@@ -22,4 +22,10 @@ public class WhiteShipSampleController {
     public String hello() {
         return "hello";
     }
+
+    @GetMapping(value = "/plane")
+    @ResponseBody
+    public String planeText() {
+        return "plane text";
+    }
 }

@@ -31,11 +31,31 @@ class WhiteShipSampleControllerTest {
     @Test
     void 요청테스트() throws Exception {
         mockMvc.perform(get("/hello")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+        )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("hello"))
                 .andExpect(handler().handlerType(WhiteShipSampleController.class))
                 .andExpect(handler().methodName("hello"));
+    }
+
+    @Test
+    void header에json타입확인하는테스트() throws Exception {
+        mockMvc.perform(get("/hello")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON) // JSON 을 원한다 + Accept 헤더에 추가
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void text_plane_요청테스트() throws Exception {
+        mockMvc.perform(get("/hello/plane")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }
