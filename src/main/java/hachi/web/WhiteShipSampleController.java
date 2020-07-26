@@ -30,9 +30,14 @@ public class WhiteShipSampleController {
         return "plane text";
     }
 
-    @GetMapping(value = "/header", headers = HttpHeaders.FROM) // 이 헤더가 들어있는 요청만 처리하겠다는 뜻
+    @GetMapping(value = "/header", headers = HttpHeaders.FROM) // 이 헤더가 들어있는 요청만 처리하겠는 뜻 + ! 를 붙이면 from 이 헤더에 없어야한다는 뜻
     @ResponseBody
-    public String header() {
+    public String fromHeader() {
+        return "header";
+    }
+    @GetMapping(value = "/not-from-header", headers = "!" + HttpHeaders.FROM) //! 를 붙이면 from 이 헤더에 없어야한다는 뜻
+    @ResponseBody
+    public String notFromHeader() {
         return "header";
     }
 }

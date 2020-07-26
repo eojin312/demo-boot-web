@@ -61,9 +61,18 @@ class WhiteShipSampleControllerTest {
     }
 
     @Test
-    void 헤더요청테스트() throws Exception {
+    void from헤더요청테스트() throws Exception {
         mockMvc.perform(get("/hello/header")
                 .header(HttpHeaders.FROM, "localhost") // 헤더에 from 이 있으면 요청 받음
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void from헤더요청없어야하는테스트() throws Exception {
+        mockMvc.perform(get("/hello/not-from-header")
+                .header(HttpHeaders.AUTHORIZATION, "hachi")
         )
                 .andDo(print())
                 .andExpect(status().isOk());
