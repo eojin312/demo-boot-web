@@ -46,4 +46,11 @@ public class WhiteShipSampleController {
     public String authorizationEqualValue() {
         return "header";
     }
+
+    @GetMapping(value = "/params", params = "name=hachi") //파라미터에 name 이라는 게 있어야한다
+    @ResponseBody
+    public String params() {
+        return "parameter";
+    }
+
 }

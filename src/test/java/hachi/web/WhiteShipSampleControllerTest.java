@@ -86,4 +86,22 @@ class WhiteShipSampleControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void name_파라미터가_있는지_테스트() throws Exception {
+        mockMvc.perform(get("/hello/params")
+                .param("name", "hachi")
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void name_파라미터의값이일치해야하는_있는지_테스트() throws Exception {
+        mockMvc.perform(get("/hello/params")
+                .param("name", "hachi") //Parameters = {name=[hachi]}
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }
