@@ -77,4 +77,13 @@ class WhiteShipSampleControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void from헤더요청_value_값이정확히일치해야하는_테스트() throws Exception {
+        mockMvc.perform(get("/hello/authorization-value-header")
+                .header(HttpHeaders.AUTHORIZATION, "hachi")
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }

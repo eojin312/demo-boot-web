@@ -40,4 +40,10 @@ public class WhiteShipSampleController {
     public String notFromHeader() {
         return "header";
     }
+
+    @GetMapping(value = "/authorization-value-header", headers = HttpHeaders.AUTHORIZATION + "=" + "hachi") //테스트 코드의 value 의 값과 같으면 통과
+    @ResponseBody
+    public String authorizationEqualValue() {
+        return "header";
+    }
 }
