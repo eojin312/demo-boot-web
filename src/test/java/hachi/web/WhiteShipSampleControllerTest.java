@@ -104,4 +104,13 @@ class WhiteShipSampleControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void 헤더정보_보이는지_테스트() throws Exception {
+        mockMvc.perform(head("/hello/params") //get 대신 head 가 들어가면 get 요청과 동일하지만 응답 본문은 받아오지 않고 응답 헤더만 받아온다.
+                .param("name", "hachi")
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }
