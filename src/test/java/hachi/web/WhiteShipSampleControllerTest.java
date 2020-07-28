@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -111,6 +113,34 @@ class WhiteShipSampleControllerTest {
                 .param("name", "hachi")
         )
                 .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void option테스트() throws Exception {
+        mockMvc.perform(options("/hello")) // Headers = [Allow:"GET,HEAD,POST,OPTIONS"]
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    /**
+     *  allow 되는 메소드들이 맞는지 확인하는 메소드 hasItems() 를 쓰는 이유는 allow 메소드들이 순서대로 정렬해두지않으면
+     *  java.lang.AssertionError: Response header 'Allow' expected:<[GET, OPTIONS, POST, HEAD]> but was:<[GET,HEAD,POST,OPTIONS]>
+     *  이런 오류를 뜨기 때문.
+     *  hasItems(containsString("GET")) 이런 식으로 테스트를 돌리면 순서 상관없이 메소드를 나열해도 된다
+     * @throws Exception
+     */
+    @Test
+    void option_응답헤더확인_테스트() throws Exception {
+        mockMvc.perform(options("/hello"))
+                .andDo(print())
+                .andExpect(header().exists(HttpHeaders.ALLOW)) // 어떤 헤더의 값이 있는지 확인
+                .andExpect(header().stringValues(HttpHeaders.ALLOW, hasItems(
+                        containsString("GET")
+                        ,containsString("POST")
+                        ,containsString("HEAD")
+                        ,containsString("OPTIONS")
+                )))
                 .andExpect(status().isOk());
     }
 }

@@ -50,5 +50,9 @@ public class WhiteShipSampleController {
         return "header";
     }
 
-
+    @PostMapping(value = "/**")
+    @ResponseBody
+    public String posts() {
+        return "hello";
+    }
 }
