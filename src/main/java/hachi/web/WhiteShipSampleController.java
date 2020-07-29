@@ -55,4 +55,11 @@ public class WhiteShipSampleController {
     public String posts() {
         return "hello";
     }
+
+    @GetHelloMapping
+    @ResponseBody
+    public String annotation() {
+        return "hello";
+    }
+
 }

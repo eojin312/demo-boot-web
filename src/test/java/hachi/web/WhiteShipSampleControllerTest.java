@@ -143,4 +143,16 @@ class WhiteShipSampleControllerTest {
                 )))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void 커스텀어노테이션_테스트() throws Exception {
+        mockMvc.perform(get("/hello")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("hello"))
+                .andExpect(handler().handlerType(WhiteShipSampleController.class))
+                .andExpect(handler().methodName("hello"));
+    }
 }
