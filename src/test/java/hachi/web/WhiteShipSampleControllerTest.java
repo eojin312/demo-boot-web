@@ -155,4 +155,12 @@ class WhiteShipSampleControllerTest {
                 .andExpect(handler().handlerType(WhiteShipSampleController.class))
                 .andExpect(handler().methodName("hello"));
     }
+
+    @Test
+    void url패턴테스트() throws Exception {
+        mockMvc.perform(delete("/hello/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(1));
+    }
 }
