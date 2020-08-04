@@ -26,7 +26,7 @@ class SampleControllerTest {
 
     @Test
     void deleteEvent() throws Exception {
-        mockMvc.perform(get("/events/1"))
+        mockMvc.perform(get("/events/1;name=hachi"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(1));
