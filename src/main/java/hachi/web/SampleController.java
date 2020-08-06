@@ -2,19 +2,15 @@ package hachi.web;
 
 import hachi.entity.Event;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.MatrixVariable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class SampleController {
 
-    @GetMapping("/events/{id}")
+    @PostMapping("/events")
     @ResponseBody
-    public Event getEvent(@PathVariable Long id, @MatrixVariable String name) {
+    public Event getEvent(@RequestParam(required = false, defaultValue = "eojin")String name) {
         Event event = new Event();
-        event.setId(id);
         event.setName(name);
         return event;
     }
