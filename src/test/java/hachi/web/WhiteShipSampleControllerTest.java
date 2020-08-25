@@ -173,4 +173,15 @@ class WhiteShipSampleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("hachi"));
     }
+
+    @Test
+    // Field error in object 'event' on field 'limit': rejected value [hachi]; codes [typeMismatch.event.limit,typeMismatch.limit,typeMismatch.java.lang.Integer,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [event.limit,limit]; arguments []; default message [limit]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'java.lang.Integer' for property 'limit'; nested exception is java.lang.NumberFormatException: For input string: "hachi"]
+    // 이렇게 무슨 정보가 어떻게 잘못되었는지 보여주는 역할을 한다.
+    void modelattribute_bindingresult_error_test() throws Exception {
+        mockMvc.perform(post("/events/name/eojin")
+                .param("limit", "hachi"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name").value("eojin"));
+    }
 }
