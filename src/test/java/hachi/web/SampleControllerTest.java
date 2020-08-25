@@ -28,11 +28,9 @@ class SampleControllerTest {
     @Test
     void deleteEvent() throws Exception {
         mockMvc.perform(post("/events?name=eojin")
-                .param("name", "eojin")
         )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("eojin"));
     }
-
 }

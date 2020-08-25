@@ -163,4 +163,14 @@ class WhiteShipSampleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(1));
     }
+
+    @Test
+    void modelattribute_test() throws Exception {
+        mockMvc.perform(post("/events/model")
+                .param("name", "hachi")
+                .param("limit", "20"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name").value("hachi"));
+    }
 }
