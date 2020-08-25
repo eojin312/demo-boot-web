@@ -1,5 +1,7 @@
 package hachi.entity;
 
+import javax.validation.constraints.Min;
+
 public class Event {
 
     public Long id;
@@ -10,6 +12,7 @@ public class Event {
         return id;
     }
 
+    @Min(0) // @Vaild 테스트를 위해서 limit 의 값이 0 이하로 들어올 수 없게 해준다.
     public Integer limit;
 
     public Integer getLimit() {
