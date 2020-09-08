@@ -1,10 +1,15 @@
 package hachi.entity;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 public class Event {
+    interface ValidateLimit { }
+    interface ValidateName{}
 
     public Long id;
+
+    @NotBlank(groups = ValidateName.class)
     public String name;
 
 
@@ -12,7 +17,7 @@ public class Event {
         return id;
     }
 
-    @Min(0) // @Vaild 테스트를 위해서 limit 의 값이 0 이하로 들어올 수 없게 해준다.
+    @Min(value = 0, groups = ValidateLimit.class) // @Vaild 테스트를 위해서 limit 의 값이 0 이하로 들어올 수 없게 해준다.
     public Integer limit;
 
     public Integer getLimit() {

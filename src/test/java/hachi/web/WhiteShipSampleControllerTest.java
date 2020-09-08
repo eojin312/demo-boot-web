@@ -185,4 +185,5 @@ class WhiteShipSampleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("eojin"));
     }
+
 }
